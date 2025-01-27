@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A fun fact about cartoons!">
+    <title>Cartoon Fun Facts</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f1f1f1;
+            color: #333;
+            line-height: 1.6;
+        }
+        header {
+            background-color: #00aaff;
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            color: white;
+        }
+        .fun-fact {
+            font-size: 2.8em;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin: 0;
+        }
+        main {
+            padding: 30px;
+            max-width: 900px;
+            margin: auto;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+        .description {
+            font-size: 1.3em;
+            margin: 20px 0;
+            text-align: justify;
+            line-height: 1.8;
+        }
+        .responsive-image {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 20px auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease-in-out;
+        }
+        .responsive-image:hover {
+            transform: scale(1.05);
+        }
+        footer {
+            text-align: center;
+            padding: 15px;
+            background-color: #333;
+            color: white;
+        }
+        footer a {
+            color: #00aaff;
+            text-decoration: none;
+        }
+        footer p {
+            margin: 10px 0;
+        }
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            animation: fadeIn 1s forwards;
+        }
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+        .fade-out {
+            opacity: 1;
+            animation: fadeOut 1s forwards;
+        }
+        @keyframes fadeOut {
+            to {
+                opacity: 0;
+            }
+        }
+        .next-fact-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #00aaff;
+            color: white;
+            font-size: 1.2em;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 8px;
+            margin-top: 20px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .next-fact-button:hover {
+            background-color: #0088cc;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1 class="fun-fact fade-in">Did You Know? Tom & Jerry Was the First Animated Series to Win an Academy Award!</h1>
+    </header>
+    <main>
+        <div id="fact-container">
+            <!-- Initial fact -->
+            <article>
+                <p class="description fade-in" id="fact-text">Tom and Jerry, the beloved animated cat-and-mouse duo, made history by winning the Academy Award for Best Animated Short Film in 1943. This success helped cement their legacy as one of the most iconic animated series of all time!</p>
+                <img src="https://images.unsplash.com/photo-1575925487037-40443346276d" alt="Tom and Jerry Cartoon" class="responsive-image fade-in" id="fact-image">
+            </article>
+        </div>
+
+        <a href="#" class="next-fact-button fade-in" id="next-button">Next Fact</a>
+    </main>
+    <footer>
+        <p>&copy; 2025 Cartoon Fun Facts | <a href="https://i.guim.co.uk/img/media/853e633f9dcbd60947fe8ee92dab3f5b2f992682/111_0_4800_2880/master/4800.jpg?width=1200&height=1200&quality=85&auto=format&fit=crop&s=544483ec07ca9199968c4c4d6dfd5095">Contact</a></p>
+    </footer>
+    <script>
+        const facts = [
+            {
+                text: "Tom and Jerry, the beloved animated cat-and-mouse duo, made history by winning the Academy Award for Best Animated Short Film in 1943. This success helped cement their legacy as one of the most iconic animated series of all time!",
+                image: "https://images.unsplash.com/photo-1575925487037-40443346276d"
+            },
+            {
+                text: "The Simpsons holds the record for the longest-running animated television series in history. It has been airing since 1989 and shows no sign of slowing down!",
+                image: "https://images.unsplash.com/photo-1555298289-973fdf51e070"
+            },
+            {
+                text: "Did you know that SpongeBob SquarePants has been on air since 1999? It's one of the most successful cartoons of all time, with over 250 episodes and multiple feature films!",
+                image: "https://images.unsplash.com/photo-1506863277094-35d510d99106"
+            }
+        ];
+
+        let currentFact = 0;
+
+        // Function to change fact
+        function showNextFact() {
+            // Fade out current fact
+            const factText = document.getElementById("fact-text");
+            const factImage = document.getElementById("fact-image");
+            const factContainer = document.getElementById("fact-container");
+
+            factText.classList.add("fade-out");
+            factImage.classList.add("fade-out");
+
+            // Wait for the fade-out animation to finish
+            setTimeout(() => {
+                // Update the content
+                currentFact = (currentFact + 1) % facts.length;
+                factText.textContent = facts[currentFact].text;
+                factImage.src = facts[currentFact].image;
+
+                // Fade in the new content
+                factText.classList.remove("fade-out");
+                factImage.classList.remove("fade-out");
+                factText.classList.add("fade-in");
+                factImage.classList.add("fade-in");
+            }, 1000); // Timeout duration matches fade-out animation time
+        }
+
+        // Add event listener for the "Next Fact" button
+        const nextButton = document.getElementById("next-button");
+        nextButton.addEventListener("click", function(event) {
+            event.preventDefault();
+            showNextFact();
+        });
+    </script>
+</body>
+</html>
